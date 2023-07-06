@@ -1,0 +1,58 @@
+<%- include("./partials/head") %>
+<head>
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+</head>
+<body>
+    <div class="page-container">
+    <%- include("./partials/navbar") %>
+    <div class="hang">
+        <p><strong>Welcome,</strong> <% if (user.role === "professor") { %> Prof. <% } %> <%= user.firstName %> <%= user.lastName %></p>
+        <a href="/auth/logout">Logout</a>
+    </div>
+    
+    <center><h1 style="margin-top: 2rem;">Profile</h1></center>
+    <div class="wrapper">
+        <form method="post" action="/profile/<%=suser.username%>/update">
+            <% if (user.username === suser.username || user.role === "admin") { %>
+            <label for="username">Username</label>
+            <% if (user.role === "admin") { %>
+                <input type="text" name="un" value="<%=suser.username%>">
+            <% } else { %>
+                <input type="text" name="un" value="<%=suser.username%>" readonly>
+            <% } %>
+            <label for="firstName">First Name</label>
+            <input type="text" name="firstName" value="<%= suser.firstName %>">
+            <label for="lastName">Last Name</label>
+            <input type="text" name="lastName" value="<%= suser.lastName %>">
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" value="<%= suser.phone %>">
+            <label for="email">Email</label>
+            <input type="text" name="email" value="<%= suser.email %>">
+            
+            <button type="submit" class="button-style">Save</button>
+            <% } else { %>
+                <label for="username">Username</label>
+                <input type="text" name="username" value="<%= suser.username %>" readonly>
+                <label for="name">Name</label>
+                <input type="text" name="name" value="<%= suser.firstName %> <%= suser.lastName %>" readonly>
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" value="<%= suser.phone %>" readonly>
+                <label for="email">Email</label>
+                <input type="text" name="email" value="<%= suser.email %>" readonly>
+            <% } %>
+            
+            
+        </form>
+    </div>
+    
+    </div>
+
+    <%- include("./partials/footer") %>
+</body>
+</html>

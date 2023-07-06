@@ -1,0 +1,44 @@
+<%- include("./partials/head") %>
+<body>
+    <div class="page-container">
+    <%- include("./partials/navbar", {flag: false}) %>
+    <div class="hang">
+        <p><strong>Welcome,</strong> <% if (user.role === "professor") { %> Prof. <% } %> <%= user.firstName %> <%= user.lastName %></p>
+        <div class="hang-right"><a href="/profile/<%=user.username%>">Profile</a><a href="/auth/logout">Logout</a></div>
+    </div>
+    
+
+    <center><h1 style="margin-top:2rem;">My Semester</h1></center>
+    <div>
+        <div class="wrapper">
+            <% if (data) { %>
+            <% data.forEach(cls => { %>
+            <a href="/classes/<%= cls.module.id %>">
+                <div class="card">
+                    <div class="card-banner">
+                        <img class="banner-img" src="/<%= cls.module.image %>" alt="Banner Image">
+                    </div>
+                    <div class="card-body">
+                        <h2 class="blog-title"><%= cls.module.module %></h2>
+                        <p class="blog-time"><%= cls.module.timeago %></p>
+                        <p><%= cls.module.snippet %></p>
+                        <div class="card-profile">
+                            <h3>by</h3>
+                            <div class="card-profile-info">
+                                <h3 class="profile-name"><%= cls.module.by.firstName %> <%= cls.module.by.lastName %></h3>
+                                <p class="profile-tagline">KnapSack</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <% }); %>
+            <% } else {%>
+            <h3>No Modules Found.</h3>
+            <% } %>
+        </div>
+    </div>
+    </div>
+    <%- include("./partials/footer") %>
+</body>
+</html>

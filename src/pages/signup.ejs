@@ -1,0 +1,113 @@
+<%- include("./partials/head") %>
+    <body>
+        <div class="page-container">
+        <%- include("./partials/navbar") %>
+        <div class="hang">
+            <p><strong>Welcome,</strong> <% if (user.role === "professor") { %> Prof. <% } %> <%= user.firstName %> <%= user.lastName %></p>
+            <div class="hang-right"><a href="/profile/<%=user.username%>">Profile</a><a href="/auth/logout">Logout</a></div>
+        </div>
+        
+        
+        <center><h1 style="margin-top: 2rem;">Sign Up</h1></center>
+
+        <div class="wrapper">
+            <form>
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter Username"
+                    required
+                />
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    required
+                />
+                <label for="firstname">First Name</label>
+                <input
+                    type="text"
+                    name="firstname"
+                    placeholder="Enter First Name"
+                    required
+                />
+                <label for="lastname">Last Name</label>
+                <input type="text" name="lastname" placeholder="Enter Last Name" />
+                <label for="email">Email</label>
+                <input
+                    type="text"
+                    name="email"
+                    placeholder="Enter Email"
+                    required
+                />
+                <label for="phone">Phone No.</label>
+                <input type="text" name="phone" placeholder="Enter Phone No." />
+                <fieldset>
+                    <legend>Select Role</legend>
+                    <div>
+                        <input type="radio" name="role" id="admin" value="admin" class="special-input"/>
+                        <label class="special-label" for="admin">Admin</label>
+                        <input
+                            type="radio"
+                            name="role"
+                            id="professor"
+                            value="professor"
+                            class="special-input"
+                        />
+                        <label class="special-label" for="professor">Professor</label>
+                        <input
+                            type="radio"
+                            name="role"
+                            id="student"
+                            value="student"
+                            class="special-input"
+                        />
+                        <label class="special-label" for="student">Student</label>
+                    </div>
+                </fieldset>
+    
+                <button class="button-style">Signup</button>
+            </form>
+        </div>
+        
+        </div>
+
+        <%- include("./partials/footer") %>
+
+        <script>
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const username = form.username.value;
+                const firstName = form.firstname.value;
+                const lastName = form.lastname.value;
+                const password = form.password.value;
+                const email = form.email.value;
+                const phone = form.phone.value;
+                const role = form.role.value;
+
+                try {
+                    const res = await fetch("/auth/signup", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            username,
+                            password,
+                            firstName,
+                            lastName,
+                            email,
+                            phone,
+                            role,
+                        }),
+                        headers: { "Content-Type": "application/json" },
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            });
+        </script>
+    </body>
+</html>

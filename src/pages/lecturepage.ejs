@@ -1,0 +1,148 @@
+<%- include("./partials/head") %>
+<body>
+    <div class="page-container">
+    <%- include("./partials/navbar") %>
+    <div class="hang">
+        <p><strong>Welcome,</strong> <% if (user.role === "professor") { %> Prof. <% } %> <%= user.firstName %> <%= user.lastName %></p>
+        <div class="hang-right"><a href="/profile/<%=user.username%>">Profile</a><a href="/auth/logout">Logout</a></div>
+    </div>
+    
+    
+    <!-- <h1><%= lec.name %></h1>
+    <p>by <%= cls.by.firstName %> <%= cls.by.lastName %></p>
+    <a href="/classes/<%= cls.id %>/<%= lec._id %>/delete">Delete Lecture</a>
+    <a href="/classes/<%= cls.id %>/<%= lec._id %>/edit">Edit Lecture</a>
+    <div>
+        <%- lec.body %>
+    </div> -->
+
+    <div class="posts-container-two">
+        <div class="left-section">
+            <% if (lectures) { %> 
+                
+                <ul class="ul-styles">
+                    <h3><%= cls.module %></h3>
+                    <br>
+                    <hr>
+                    <br>
+                    <% lectures.forEach(lecture => { %>
+                        <li><a href="/classes/<%= cls.id %>/<%= lecture._id %>"><%=lecture.lectureNo%>. <%=lecture.name%></a></li>
+                    <% }) %>
+                </ul>
+            <% } %> 
+        </div>
+        <div class="right-section">
+            <div class="blog-cover" style="background: url('/<%= cls.image %>'); background-size: cover;
+        background-position: center;">
+            </div>
+            <div>
+                <div class="blog-post-head">
+                    <div class="categories-container-two">
+                        <a href="/classes/<%= cls.id %>/">
+                            <div class="category">
+                                <p><img class="icon-image" src="/assets/caret-left-solid.svg" alt=""></p>
+                            </div>
+                        </a>
+                        <% if (user.role === "professor" || user.role === "admin") { %>
+                        <a href="/classes/<%= cls.id %>/<%= lec._id %>/edit">
+                            <div class="category">
+                                <p><img class="icon-image" src="/assets/pen-to-square-solid.svg" alt=""></p>
+                            </div>
+                        </a>
+                        <a href="/classes/<%= cls.id %>/<%= lec._id %>/delete">
+                            <div class="category delete">
+                                <p><img class="icon-image" src="/assets/trash-arrow-up-solid.svg" alt=""></p>
+                            </div>
+                        </a>
+                        <% } %>
+                        <a href="/classes/<%= cls.id %>/discussions">
+                            <div class="category">
+                                <p><img class="icon-image" src="/assets/message-solid.svg" alt=""></p>
+                            </div>
+                        </a>
+                    </div>
+                    <h1 class="hero-heading"><%=lec.lectureNo%>. <%= lec.name %></h1>
+                    <div class="underheading">
+                        <div class="card-profile-two">
+                            <h3>by</h3>
+                            <div class="card-profile-info">
+                                <h3 class="profile-name-two"><a href="{% url 'about' %}">Prof. <%= cls.by.firstName %> <%=cls.by.lastName%></a></h3>
+                            </div>
+                        </div>
+                        <p class="post-timesince">Posted <%= lec.timeago %></p>
+                    </div>
+                </div>
+                <div>
+                    <div class="content-centerer">
+                        <div class="content">
+                            <%- lec.body %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="comment-section">
+                <div class="comment-container">
+                    <div class="fb-like" data-href="http://127.0.0.1:8000/lectures/{{post.post_id}}" data-width="" data-layout="button_count" data-action="like" data-size="small" data-share="true"></div>
+                    <h2>Comments</h2>
+                    <div class="comment-form">
+                        <form action="" method="post" autocomplete="off">
+                            {% csrf_token %}
+                            <div class="field" tabindex="1">
+                                <label for="name">
+                                    Your Name
+                                </label>
+                                <input name="name" type="text" placeholder="e.g. john doe" required>
+                            </div>
+                            <div class="field" tabindex="3">
+                                <label for="message">
+                                    Your Comment
+                                </label>
+                                <textarea name="body" placeholder="Type Here" required></textarea>
+                            </div>
+                            <button class="btn" type="submit">Comment</button>
+                        </form>
+                    </div>
+                    <div class="comments-load">
+                        {% for comment in comments %}
+                        <div>
+                            <div class="comment-box">
+                                <div class="comment-head">
+                                    <h6 class="comment-name by-author">{{comment.name}}</h6>
+                                    <span>{{comment.created_on|timesince}}</span>
+                                </div>
+                                <div class="comment-content">
+                                    {{comment.body}}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div> -->
+            <h2 style="padding-left: 2rem; padding-right: 2rem;">More Modules</h2>
+            <div class="categories-container">
+                <a href="/classes">
+                    <div class="category">
+                        <p>All</p>
+                    </div>
+                </a>
+                <% classes.forEach(cls => { %>
+                <a href="/classes/<%=cls.id%>">
+                    <div class="category">
+                        <p><%=cls.module%></p>
+                    </div>
+                </a>
+                <% }); %>
+            </div>
+        </div>
+        <div class="ultra-right">
+        </div>
+    </div>
+    </div>
+    <%- include("./partials/footer") %>
+</body>
+</html>
+
+
+
+

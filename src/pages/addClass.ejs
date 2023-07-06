@@ -1,0 +1,26 @@
+<%- include("./partials/head") %>
+<body>
+    <div class="page-container">
+    <%- include("./partials/navbar") %>
+    <div class="hang">
+        <p><strong>Welcome,</strong> <% if (user.role === "professor") { %> Prof. <% } %> <%= user.firstName %> <%= user.lastName %></p>
+        <div class="hang-right"><a href="/profile/<%=user.username%>">Profile</a><a href="/auth/logout">Logout</a></div>
+    </div>
+    
+    <center><h1 style="margin-top: 2rem;">Add Module</h1></center>
+    <div class="wrapper">
+        <form method="post" action="/classes/add" enctype="multipart/form-data">
+            <label for="module">Module Name</label>
+            <input type="text" name="module" placeholder="Enter Module Name" required>
+            <label for="description">Module Description</label>
+            <input type="text" name="description" placeholder="Enter Module Description">
+            <label for="image">Upload Thumbnail</label>
+            <input type="file" name="image">
+            <button class="button-style" type="submit">Add</button>
+        </form>
+    </div>
+
+    </div>
+    <%- include("./partials/footer") %>
+</body>
+</html>

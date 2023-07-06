@@ -1,0 +1,62 @@
+<%- include("./partials/head") %>
+<body>
+    <div class="page-container">
+         <%- include("./partials/navbar") %>
+         <div class="hang">
+            <p><strong>Welcome,</strong> <% if (user.role === "professor") { %> Prof. <% } %> <%= user.firstName %> <%= user.lastName %></p>
+            <div class="hang-right"><a href="/profile/<%=user.username%>">Profile</a><a href="/auth/logout">Logout</a></div>
+        </div>
+        
+        
+        <div class="posts-container-two">
+            <div class="left-section">
+            </div>
+            <div class="right-section">
+                <input id="hidden-input-user" style="display: none;" readonly type="text" value="<%=user.username%>">
+                <input id="hidden-input-cls" style="display: none;" readonly type="text" value="<%=cls.id%>">
+                <center><h1 style="margin-top: 2rem;">Discussions | <%= cls.module %></h1></center>
+                <div class="form-control">
+                    <label class="special-label-2" for="">Write your message</label>
+                    <textarea id="textarea"></textarea>
+
+                    <button id="submit-btn"  class="button-style">Send</button>
+                </div>
+
+                <div class="form-control">
+                    <div class="typing">
+
+                    </div>
+                    <ul id="message-box">
+                        <% messages.forEach(message => { %>
+                        <li class="message">
+                            <div class="msg-card">
+                                <div class="msg-card-body">
+                                    <h6><%=message.sender.username%></h6>
+                                    <p><%=message.body%> </p>
+                                    <div class="msg-card-body-lower">
+                                        <img class="icon-image-2" src="/assets/clock-regular.svg" alt="">
+                                        <small><%=message.time%></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </div>
+            <div class="ultra-right">
+            </div>
+        </div>
+    
+    </div>
+</div>
+    <%- include("./partials/footer") %>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
+
+
+
+
