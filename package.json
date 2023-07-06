@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1,
-    "build": "npm run build",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install",
+    "start": "npm start"
   },
   "keywords": [],
   "author": "",
