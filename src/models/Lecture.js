@@ -1,8 +1,11 @@
+const importModule = async () => {
+    const { default: stripHTML } = await import("string-strip-html");
+    return stripHTML;
+  };
 const mongoose = require("mongoose");
 const domPurifier = require("dompurify");
 const { JSDOM } = require("jsdom");
 const htmlPurify = domPurifier(new JSDOM().window);
-const stripHTML = require("string-strip-html");
 
 const LectureSchema = new mongoose.Schema(
     {
